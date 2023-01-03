@@ -6,11 +6,8 @@ services:
         image: clickhouse/clickhouse-server
         ports:
             - "8123:8123"
-        environment:
-            - CLICKHOUSE_DB=crypto_trade
-            - CLICKHOUSE_USER=crypto_punk
-            - CLICKHOUSE_PASSWORD=1q2w3e4r
-            - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+        env_file:
+            - clickhouse/.env
         volumes:
             - ./clickhouse/users.d/:/etc/clickhouse-server/users.d/
             - ./clickhouse/data/:/var/lib/clickhouse/data
