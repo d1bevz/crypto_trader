@@ -2,10 +2,20 @@ version: '3.10'
 
 services:
     clickhouse:
-        container_name: database
+        container_name: clickhouse-database
         image: clickhouse/clickhouse-server
         ports:
             - "8123:8123"
+        environment:
+            - CLICKHOUSE_DB=crypto_trade
+            - CLICKHOUSE_USER=crypto_punk
+            - CLICKHOUSE_PASSWORD=1q2w3e4r
+            - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+        volumes:
+            - ./clickhouse/users.d/:/etc/clickhouse-server/users.d/
+            - ./clickhouse/data/:/var/lib/clickhouse/data
+            - ./clickhouse/user_defined/:/var/lib/clickhouse/user_defined
+            - ./clickhouse/init:/docker-entrypoint-initdb.d
         networks:
             - minenet
 
