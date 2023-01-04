@@ -7,6 +7,8 @@ create table if not exists crypto_trade.candlesticks_history (
     close Float32,
     vol Float32,
     vol_ccy Float32,
+    vol_ccy_quote Float32, 
+    confirm UInt8,
     updated DateTime() default now()
 )
 engine = MergeTree()

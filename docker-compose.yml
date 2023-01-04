@@ -7,7 +7,7 @@ services:
         ports:
             - "8123:8123"
         env_file:
-            - clickhouse/.env
+            - .env
         volumes:
             - ./clickhouse/users.d/:/etc/clickhouse-server/users.d/
             - ./clickhouse/data/:/var/lib/clickhouse/data
@@ -35,7 +35,7 @@ services:
 
     scheduler:
         container_name: airflow-scheduler
-        image: airflow-crypto-trade
+        image: apache/airflow:2.5.0-python3.9
         entrypoint: /opt/airflow/scripts/entrypoint.sh
         deploy:
             restart_policy:
@@ -43,7 +43,7 @@ services:
         depends_on:
             - postgres
         env_file:
-            - airflow/.env
+            - .env
         networks:
             - minenet
         volumes:
@@ -51,7 +51,7 @@ services:
 
     webserver:
         container_name: airflow-webserver
-        image: airflow-crypto-trade
+        image: apache/airflow:2.5.0-python3.9
         command: webserver
         deploy:
             restart_policy:
@@ -60,7 +60,7 @@ services:
             - postgres
             - scheduler
         env_file:
-            - airflow/.env
+            - .env
         volumes:
             - ./airflow:/opt/airflow
         networks:
